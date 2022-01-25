@@ -1,0 +1,11 @@
+${AnsiBackground.RED}
+${AnsiColor.BRIGHT_WHITE}${AnsiStyle.BOLD} ==============================================================================
+${AnsiColor.BRIGHT_WHITE}${AnsiStyle.BOLD}____    ____  _______   ______  ________      ___      .__   __.  _______
+${AnsiColor.BRIGHT_WHITE}${AnsiStyle.BOLD}\   \  /   / |   ____| /      ||       /     /   \     |  \ |  | |   ____|
+${AnsiColor.BRIGHT_WHITE}${AnsiStyle.BOLD} \   \/   /  |  |__   |  ,----'`---/  /     /  ^  \    |   \|  | |  |__
+${AnsiColor.BRIGHT_WHITE}${AnsiStyle.BOLD}  \_    _/   |   __|  |  |        /  /     /  /_\  \   |  . `  | |   __|
+${AnsiColor.BRIGHT_WHITE}${AnsiStyle.BOLD}    |  |     |  |____ |  `----.  /  /----./  _____  \  |  |\   | |  |____
+${AnsiColor.BRIGHT_WHITE}${AnsiStyle.BOLD}    |__|     |_______| \______| /________/__/     \__\ |__| \__| |_______|
+${AnsiColor.BRIGHT_WHITE}${AnsiStyle.BOLD} ==============================================================================
+
+${AnsiBackground.DEFAULT}
