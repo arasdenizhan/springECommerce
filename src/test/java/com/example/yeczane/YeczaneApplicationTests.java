@@ -8,6 +8,7 @@ class YeczaneApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }

@@ -100,3 +100,13 @@ html, body{
     font-size: 14px;
     text-align: center;
 }
+
+.param{
+    color: #fff;
+    font-size: 30px;
+}
+
+.register-param{
+    color: #fff;
+    font-size: 15px;
+}
