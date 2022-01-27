@@ -1,7 +1,8 @@
-package com.example.yeczane.config;
+package com.example.yeczane.service.impl;
 
 import com.example.yeczane.model.Users;
 import com.example.yeczane.repository.UserRepository;
+import com.example.yeczane.service.MembersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,7 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MembersServiceImpl implements MembersService{
+public class MembersServiceImpl implements MembersService {
 
     private final UserRepository userRepository;
 
@@ -27,9 +28,9 @@ public class MembersServiceImpl implements MembersService{
             userBuilder = User.withUsername(username);
             userBuilder.password(new BCryptPasswordEncoder().encode(user.getPassword()));
             userBuilder.roles(String.valueOf(user.getRole()));
+            return userBuilder.build();
         } else {
             throw new UsernameNotFoundException("User not found");
         }
-        return null;
     }
 }

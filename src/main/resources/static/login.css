@@ -109,4 +109,11 @@ html, body{
 .register-param{
     color: #fff;
     font-size: 15px;
+    text-align: center;
+}
+
+.register-completed{
+    color: #a80000;
+    font-size: 15px;
+    text-align: center;
 }

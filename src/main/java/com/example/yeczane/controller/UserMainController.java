@@ -1,6 +1,10 @@
 package com.example.yeczane.controller;
 
 import com.example.yeczane.dto.UsersDto;
+import com.example.yeczane.model.Users;
+import com.example.yeczane.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +15,15 @@ import java.util.Objects;
 
 @Controller
 public class UserMainController {
-    @GetMapping
+
+    private final UserService userService;
+
+    @Autowired
+    public UserMainController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @GetMapping(path = {"/","/home"})
     public String getHomePage(){
         return "home";
     }
@@ -31,7 +43,7 @@ public class UserMainController {
     public String addNewUser(@ModelAttribute("usersDto") UsersDto userDto)
     {
         Objects.requireNonNull(userDto);
-//      userService.addNewUser(userDto);
+        userService.addNewUser(userDto);
         return "success";
     }
 }

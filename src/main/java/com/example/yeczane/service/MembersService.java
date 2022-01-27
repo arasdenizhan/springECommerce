@@ -1,4 +1,4 @@
-package com.example.yeczane.config;
+package com.example.yeczane.service;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 
