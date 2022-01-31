@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Yeczane - Yeni Nesil Eczane</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/profile.css}"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <header class="site-header">
+        <div class="site-identity">
+            <!--            <a href="#"><img src="http://via.placeholder.com/400" alt="Site Name" /></a>-->
+            <h1><a href="#"> <i class="material-icons">local_pharmacy</i> Yeczane</a></h1>
+        </div>
+        <nav class="site-navigation">
+            <ul class="nav">
+                <li><a href="/home"> <i class="material-icons">home</i> </a></li>
+                <li><a href="/profile"> <i class="material-icons active">account_circle</i> </a></li>
+                <li><a href="#"> <i class="material-icons">receipt_long</i> </a></li>
+                <li><a href="#"> <i class="material-icons">shopping_basket</i> </a></li>
+                <li><a href="#"> <i class="material-icons">credit_card</i> </a></li>
+                <li><a href="/logout"> <i class="material-icons">logout</i> </a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="main-content">
+        <form th:action="@{/profile}" method="post">
+            <div class="child-parent">
+                <div class="child">
+                    <h2>Welcome, <span th:text="${currentUser.getUsername()}"></span> !</h2>
+                </div><br>
+                <div class="child">
+                    <h4>Current Username: <span th:text="${currentUser.getUsername()}"></span></h4>
+                    <input class="text-box" name="username" placeholder="New Username">
+                    <h4>Current Password: <span th:text="${currentUser.getPassword()}"></span></h4>
+                    <input class="text-box" name="password" placeholder="New Password">
+                    <h4>Current Email: <span th:text="${currentUser.getEmail()}"></span></h4>
+                    <input class="text-box" name="email" placeholder="New Email"><p></p>
+                </div><br>
+                <div class="button-child">
+                    <input class="post-button" type="submit" name="" value="Change">
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

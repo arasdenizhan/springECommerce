@@ -35,4 +35,9 @@ public class UserServiceImpl implements UserService {
         users.setRole(UserRoles.ADMIN);
         return userRepository.save(users);
     }
+
+    @Override
+    public Users getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
 }

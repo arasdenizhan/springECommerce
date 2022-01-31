@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.security.Principal;
 import java.util.Objects;
 
 @Controller
@@ -26,6 +27,13 @@ public class UserMainController {
     @GetMapping(path = {"/","/home"})
     public String getHomePage(){
         return "home";
+    }
+
+    @GetMapping("/profile")
+    public String getProfilePage(Model model, Principal principal){
+        String currentUsersUsername = principal.getName();
+        model.addAttribute("currentUser", userService.getUserByUsername(currentUsersUsername));
+        return "profile";
     }
 
     @GetMapping("/login")
