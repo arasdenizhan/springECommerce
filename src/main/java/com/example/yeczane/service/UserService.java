@@ -7,4 +7,5 @@ public interface UserService {
     Users addNewUser(UsersDto usersDto);
     Users addNewAdminUser(UsersDto usersDto);
     Users getUserByUsername(String username);
+    Boolean updateUser(UsersDto usersDto);
 }

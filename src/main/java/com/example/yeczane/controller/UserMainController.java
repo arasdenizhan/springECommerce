@@ -32,7 +32,14 @@ public class UserMainController {
     @GetMapping("/profile")
     public String getProfilePage(Model model, Principal principal){
         String currentUsersUsername = principal.getName();
-        model.addAttribute("currentUser", userService.getUserByUsername(currentUsersUsername));
+        Users tempUser = userService.getUserByUsername(currentUsersUsername);
+        UsersDto userDto = new UsersDto(
+                tempUser.getId(),
+                tempUser.getUsername(),
+                tempUser.getPassword(),
+                tempUser.getPassword()
+        );
+        model.addAttribute("currentUser", userDto);
         return "profile";
     }
 
@@ -42,7 +49,7 @@ public class UserMainController {
     }
 
     @GetMapping("register")
-    public String registerPage(Model model){
+    public String getRegisterPage(Model model){
         model.addAttribute("usersDto", new UsersDto());
         return "register";
     }
@@ -51,7 +58,19 @@ public class UserMainController {
     public String addNewUser(@ModelAttribute("usersDto") UsersDto userDto)
     {
         Objects.requireNonNull(userDto);
-        userService.addNewUser(userDto);
-        return "success";
+        if(userService.addNewUser(userDto)!=null){
+            return "success";
+        }
+        return "error";
+    }
+
+    @PostMapping("profile")
+    public String updateUser(@ModelAttribute("currentUser") UsersDto userDto)
+    {
+        Objects.requireNonNull(userDto);
+        if(Boolean.TRUE.equals(userService.updateUser(userDto))){
+            return "redirect:/logout";
+        }
+        return "error";
     }
 }

@@ -30,12 +30,13 @@
                     <h2>Welcome, <span th:text="${currentUser.getUsername()}"></span> !</h2>
                 </div><br>
                 <div class="child">
+                    <input type="hidden" name="id" th:value="${currentUser.getId()}">
                     <h4>Current Username: <span th:text="${currentUser.getUsername()}"></span></h4>
-                    <input class="text-box" name="username" placeholder="New Username">
+                    <input class="text-box" name="username" th:value="${currentUser.getUsername()}">
                     <h4>Current Password: <span th:text="${currentUser.getPassword()}"></span></h4>
-                    <input class="text-box" name="password" placeholder="New Password">
+                    <input class="text-box" name="password" th:value="${currentUser.getPassword()}">
                     <h4>Current Email: <span th:text="${currentUser.getEmail()}"></span></h4>
-                    <input class="text-box" name="email" placeholder="New Email"><p></p>
+                    <input class="text-box" name="email" th:value="${currentUser.getEmail()}"><p></p>
                 </div><br>
                 <div class="button-child">
                     <input class="post-button" type="submit" name="" value="Change">
