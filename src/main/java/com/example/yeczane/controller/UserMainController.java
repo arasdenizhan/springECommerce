@@ -37,7 +37,7 @@ public class UserMainController {
                 tempUser.getId(),
                 tempUser.getUsername(),
                 tempUser.getPassword(),
-                tempUser.getPassword()
+                tempUser.getEmail()
         );
         model.addAttribute("currentUser", userDto);
         return "profile";
