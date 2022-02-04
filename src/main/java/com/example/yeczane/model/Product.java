@@ -33,6 +33,7 @@ public class Product {
     @Column(nullable = false)
     private Date createDate;
 
-    @OneToMany(mappedBy = "product") @Getter @Setter
+    @Getter @Setter
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<Image> images;
 }
