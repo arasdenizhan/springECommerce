@@ -1,12 +1,11 @@
 package com.example.yeczane.service.impl;
 
 import com.example.yeczane.dto.UsersDto;
-import com.example.yeczane.model.UserRoles;
+import com.example.yeczane.model.enums.UserRoles;
 import com.example.yeczane.model.Users;
 import com.example.yeczane.repository.UserRepository;
 import com.example.yeczane.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

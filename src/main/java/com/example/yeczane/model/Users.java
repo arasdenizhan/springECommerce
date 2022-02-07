@@ -1,5 +1,6 @@
 package com.example.yeczane.model;
 
+import com.example.yeczane.model.enums.UserRoles;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

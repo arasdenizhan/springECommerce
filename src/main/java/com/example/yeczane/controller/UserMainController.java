@@ -4,7 +4,6 @@ import com.example.yeczane.dto.UsersDto;
 import com.example.yeczane.model.Users;
 import com.example.yeczane.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,12 +23,17 @@ public class UserMainController {
         this.userService = userService;
     }
 
-    @GetMapping(path = {"/","/home"})
-    public String getHomePage(){
-        return "home";
+    @GetMapping(path = {"","/"})
+    public String getRootPage(){
+        return "redirect:userHome";
     }
 
-    @GetMapping("/profile")
+    @GetMapping("/userHome")
+    public String getHomePage(){
+        return "userHome";
+    }
+
+    @GetMapping("/userProfile")
     public String getProfilePage(Model model, Principal principal){
         String currentUsersUsername = principal.getName();
         Users tempUser = userService.getUserByUsername(currentUsersUsername);
@@ -40,7 +44,7 @@ public class UserMainController {
                 tempUser.getEmail()
         );
         model.addAttribute("currentUser", userDto);
-        return "profile";
+        return "userProfile";
     }
 
     @GetMapping("/login")
@@ -48,13 +52,28 @@ public class UserMainController {
         return "login";
     }
 
-    @GetMapping("register")
+    @GetMapping("/loginAdmin")
+    public String getLoginAdmin(){
+        return "loginAdmin";
+    }
+
+    @GetMapping("/register")
     public String getRegisterPage(Model model){
         model.addAttribute("usersDto", new UsersDto());
         return "register";
     }
 
-    @PostMapping("register")
+    @GetMapping("/admin")
+    public String getAdminPage(){
+        return "admin";
+    }
+
+    @GetMapping("adminRegister")
+    public String getAdminRegisterPage(){
+        return "adminRegister";
+    }
+
+    @PostMapping("/register")
     public String addNewUser(@ModelAttribute("usersDto") UsersDto userDto)
     {
         Objects.requireNonNull(userDto);
@@ -64,7 +83,7 @@ public class UserMainController {
         return "error";
     }
 
-    @PostMapping("profile")
+    @PostMapping("/userProfile")
     public String updateUser(@ModelAttribute("currentUser") UsersDto userDto)
     {
         Objects.requireNonNull(userDto);

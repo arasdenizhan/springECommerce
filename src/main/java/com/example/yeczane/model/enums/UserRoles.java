@@ -1,4 +1,4 @@
-package com.example.yeczane.model;
+package com.example.yeczane.model.enums;
 
 public enum UserRoles {
     USER,

@@ -4,6 +4,7 @@ import com.example.yeczane.model.Users;
 import com.example.yeczane.repository.UserRepository;
 import com.example.yeczane.service.MembersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,10 +15,12 @@ import org.springframework.stereotype.Service;
 public class MembersServiceImpl implements MembersService {
 
     private final UserRepository userRepository;
+    private final ApplicationContext applicationContext;
 
     @Autowired
-    public MembersServiceImpl(UserRepository userRepository) {
+    public MembersServiceImpl(UserRepository userRepository, ApplicationContext applicationContext) {
         this.userRepository = userRepository;
+        this.applicationContext = applicationContext;
     }
 
     @Override
@@ -26,7 +29,7 @@ public class MembersServiceImpl implements MembersService {
         User.UserBuilder userBuilder;
         if (user != null) {
             userBuilder = User.withUsername(username);
-            userBuilder.password(new BCryptPasswordEncoder().encode(user.getPassword()));
+            userBuilder.password(applicationContext.getBean(BCryptPasswordEncoder.class).encode(user.getPassword()));
             userBuilder.roles(String.valueOf(user.getRole()));
             return userBuilder.build();
         } else {

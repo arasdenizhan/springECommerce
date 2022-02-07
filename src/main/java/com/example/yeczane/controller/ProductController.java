@@ -4,7 +4,6 @@ import com.example.yeczane.dto.ProductDto;
 import com.example.yeczane.model.Product;
 import com.example.yeczane.service.ProductService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
