@@ -3,15 +3,13 @@ package com.example.yeczane.controller;
 import com.example.yeczane.dto.ProductDto;
 import com.example.yeczane.model.Product;
 import com.example.yeczane.service.ProductService;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-@RestController
-@RequestMapping("api/product")
+import java.util.Objects;
+
+@Controller
 public class ProductController {
     private final ProductService productService;
 
@@ -20,19 +18,13 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @PostMapping
-    public ResponseEntity<Product> createProduct(@RequestParam("images") MultipartFile[] multipartFiles, @RequestParam("product") String productDtoRawText){
-        ObjectMapper objectMapper = new ObjectMapper();
-        try{
-            ProductDto productDto = objectMapper.readValue(productDtoRawText, ProductDto.class);
-            Product product = productService.addNewProduct(multipartFiles, productDto);
-            if(product.getId()!=null){
-                return ResponseEntity.ok(product);
-            }
+    @PostMapping("/product")
+    public String createProduct(@ModelAttribute("productDto") ProductDto productDto){
+        Objects.requireNonNull(productDto, "Product cannot be null.");
+        Product product = productService.addNewProduct(productDto);
+        if(product!=null){
+            return "product-success";
         }
-        catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return ResponseEntity.internalServerError().build();
+        return "error";
     }
 }

@@ -1,5 +1,6 @@
 package com.example.yeczane.controller;
 
+import com.example.yeczane.dto.ProductDto;
 import com.example.yeczane.dto.UsersDto;
 import com.example.yeczane.model.Users;
 import com.example.yeczane.service.UserService;
@@ -64,7 +65,8 @@ public class UserMainController {
     }
 
     @GetMapping("/admin")
-    public String getAdminPage(){
+    public String getAdminPage(Model model){
+        model.addAttribute("productDto", new ProductDto());
         return "admin";
     }
 

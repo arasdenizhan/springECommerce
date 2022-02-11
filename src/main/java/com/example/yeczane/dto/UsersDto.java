@@ -1,24 +1,17 @@
 package com.example.yeczane.dto;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class UsersDto {
-    private Long id;
-    private String username;
-    private String password;
-    private String email;
-
-    public UsersDto() {
-    }
-
-    public UsersDto(String username, String password, String email) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
-    }
+    public Long id;
+    public String username;
+    public String password;
+    public String email;
 
     public UsersDto(Long id, String username, String password, String email) {
         this.id = id;

@@ -4,17 +4,11 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Date;
-
 @Getter
 @Setter
 public class ProductDto {
-    private String name;
-    private String code;
-    private Double price;
-    private Date createDate;
-    private MultipartFile[] images;
-
-    public ProductDto() {
-    }
+    public String name;
+    public String code;
+    public Double price;
+    public MultipartFile[] images;
 }

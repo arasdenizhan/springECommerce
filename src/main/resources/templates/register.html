@@ -17,15 +17,15 @@
     <form th:object="${usersDto}" th:action="@{/register}" method="POST">
         <div class="title">Yeczane - Register</div>
         <div class="input-box underline">
-            <input type="text" th:field="*{username}" name="username" placeholder="Username" required>
+            <input type="text" th:field="*{usersDto.username}" name="username" placeholder="Username" required>
             <div class="underline"></div>
         </div>
         <div class="input-box">
-            <input type="password" th:field="*{password}" name="password" placeholder="Password" required>
+            <input type="password" th:field="*{usersDto.password}" name="password" placeholder="Password" required>
             <div class="underline"></div>
         </div>
         <div class="input-box">
-            <input type="email" th:field="*{email}" name="email" placeholder="E-Mail" required>
+            <input type="email" th:field="*{usersDto.email}" name="email" placeholder="E-Mail" required>
             <div class="underline"></div>
         </div>
         <div class="input-box button">
