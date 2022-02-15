@@ -2,11 +2,13 @@ package com.example.yeczane.dto.populator;
 
 import com.example.yeczane.dto.ProductDto;
 import com.example.yeczane.model.Image;
+import com.example.yeczane.model.Product;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 
 public class ImagePopulator {
@@ -28,5 +30,15 @@ public class ImagePopulator {
             }
         });
         return imageList;
+    }
+
+    public static List<String> getRawData(Product product){
+        List<String> rawImages= new ArrayList<>();
+        product.getImages().forEach(image ->
+        {
+            String encodedString = Base64.getEncoder().encodeToString(image.getData());
+            rawImages.add(encodedString);
+        });
+        return rawImages;
     }
 }

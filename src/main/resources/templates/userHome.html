@@ -23,5 +23,26 @@
             </ul>
         </nav>
     </header>
+    <div class="main-content">
+        <div class="child-parent" th:if="${products.isEmpty()}">
+            <div class="child" >
+                <h2>No Products available.</h2>
+            </div>
+        </div>
+        <div class="child-parent" th:each="product : ${products}">
+            <div class="child">
+                <h4>Product name:</h4>
+                <p th:text="*{product.name}"></p>
+                <h4>Product code:</h4>
+                <p th:text="${product.code}"></p>
+                <h4>Product price:</h4>
+                <p th:text="${product.price}"></p>
+                <h4>Product images:</h4>
+                <div class="image-child">
+                    <img class="image-data" th:each="image : ${product.images}" th:src="@{'data:image/jpeg;base64,'+${image}}" />
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

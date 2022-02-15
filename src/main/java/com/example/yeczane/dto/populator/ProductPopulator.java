@@ -1,6 +1,7 @@
 package com.example.yeczane.dto.populator;
 
 import com.example.yeczane.dto.ProductDto;
+import com.example.yeczane.dto.ProductImageDto;
 import com.example.yeczane.model.Product;
 
 import java.util.Date;
@@ -18,5 +19,14 @@ public class ProductPopulator {
         product.setName(productDto.getName());
         product.setImages(ImagePopulator.populate(productDto));
         return product;
+    }
+
+    public static ProductImageDto populate(Product product){
+        ProductImageDto productImageDto = new ProductImageDto();
+        productImageDto.setName(product.getName());
+        productImageDto.setCode(product.getCode());
+        productImageDto.setPrice(product.getPrice());
+        productImageDto.setImages(ImagePopulator.getRawData(product));
+        return productImageDto;
     }
 }
