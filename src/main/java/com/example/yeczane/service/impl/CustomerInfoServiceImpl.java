@@ -17,7 +17,17 @@ public class CustomerInfoServiceImpl implements CustomerInfoService {
     }
 
     @Override
+    public CustomerInfo saveCustomerInfo(CustomerInfo customerInfo) {
+        return customerInfoRepository.save(customerInfo);
+    }
+
+    @Override
     public CustomerInfo findCustomerInfoByUserId(Long id) {
         return customerInfoRepository.findCustomerInfoByUserId(id);
+    }
+
+    @Override
+    public boolean isExistByUserId(Long userId) {
+        return customerInfoRepository.findCustomerInfoByUserId(userId) != null;
     }
 }
