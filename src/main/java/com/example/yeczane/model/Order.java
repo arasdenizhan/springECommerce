@@ -17,7 +17,7 @@ public class Order {
     private Long id;
 
     @Getter @Setter
-    @Temporal(TemporalType.TIME)
+    @Temporal(TemporalType.DATE)
     @Column(nullable = false)
     private Date orderDate;
 
@@ -25,11 +25,11 @@ public class Order {
     @Getter @Setter
     private CustomerInfo customerInfo;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST)
     @Getter @Setter
     private List<OrderDetails> orderDetails;
 
     @Getter @Setter
     @Enumerated(EnumType.STRING)
-    private OrderStatus orderStatus = OrderStatus.RECEIVED;
+    private OrderStatus orderStatus = OrderStatus.TEMPORARY;
 }

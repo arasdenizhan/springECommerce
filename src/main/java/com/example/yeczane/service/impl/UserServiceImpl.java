@@ -6,6 +6,7 @@ import com.example.yeczane.model.enums.UserRoles;
 import com.example.yeczane.model.Users;
 import com.example.yeczane.repository.CustomerInfoRepository;
 import com.example.yeczane.repository.UserRepository;
+import com.example.yeczane.service.CustomerInfoService;
 import com.example.yeczane.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,12 +16,12 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-    private final CustomerInfoRepository customerInfoRepository;
+    private final CustomerInfoService customerInfoService;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, CustomerInfoRepository customerInfoRepository) {
+    public UserServiceImpl(UserRepository userRepository, CustomerInfoService customerInfoService) {
         this.userRepository = userRepository;
-        this.customerInfoRepository = customerInfoRepository;
+        this.customerInfoService = customerInfoService;
     }
 
     @Override
@@ -62,13 +63,22 @@ public class UserServiceImpl implements UserService {
             usersToBeUpdated.setEmail(usersDto.getEmail());
             usersToBeUpdated.setPassword(usersDto.getPassword());
             Users updatedUser = userRepository.save(usersToBeUpdated);
-            CustomerInfo customerInfo = new CustomerInfo();
-            customerInfo.setUser(updatedUser);
-            customerInfo.setCustomerName(usersDto.getCustomerName());
-            customerInfo.setCustomerAddress(usersDto.getCustomerAddress());
-            customerInfo.setCustomerPhone(usersDto.getCustomerPhone());
-            customerInfoRepository.save(customerInfo);
-            return true;
+            if(customerInfoService.isExistByUserId(updatedUser.getId())){
+                CustomerInfo customerInfoByUserId = customerInfoService.findCustomerInfoByUserId(updatedUser.getId());
+                customerInfoByUserId.setCustomerName(usersDto.getCustomerName());
+                customerInfoByUserId.setCustomerAddress(usersDto.getCustomerAddress());
+                customerInfoByUserId.setCustomerPhone(usersDto.getCustomerPhone());
+                customerInfoService.saveCustomerInfo(customerInfoByUserId);
+                return true;
+            } else {
+                CustomerInfo customerInfo = new CustomerInfo();
+                customerInfo.setUser(updatedUser);
+                customerInfo.setCustomerName(usersDto.getCustomerName());
+                customerInfo.setCustomerAddress(usersDto.getCustomerAddress());
+                customerInfo.setCustomerPhone(usersDto.getCustomerPhone());
+                customerInfoService.saveCustomerInfo(customerInfo);
+                return true;
+            }
         }
         return false;
     }
