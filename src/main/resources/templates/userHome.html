@@ -41,8 +41,14 @@
                 <div class="image-child">
                     <img class="image-data" th:each="image : ${product.images}" th:src="@{'data:image/jpeg;base64,'+${image}}" />
                 </div>
+                <button class="post-button">Add to Cart</button>
             </div>
         </div>
     </div>
+    <footer>
+        <div class="site-footer">
+            Designed and Developed by <a href="https://github.com/arasdenizhan"><span style="color: #fd3030">Denizhan Aras</span></a> - 2022
+        </div>
+    </footer>
 </body>
 </html>

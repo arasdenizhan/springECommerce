@@ -21,17 +21,9 @@ public class Order {
     @Column(nullable = false)
     private Date orderDate;
 
+    @OneToOne
     @Getter @Setter
-    @Column(nullable = false)
-    private String customerName;
-
-    @Getter @Setter
-    @Column(nullable = false)
-    private String customerAddress;
-
-    @Getter @Setter
-    @Column(nullable = false)
-    private String customerPhone;
+    private CustomerInfo customerInfo;
 
     @OneToMany(mappedBy = "order")
     @Getter @Setter
