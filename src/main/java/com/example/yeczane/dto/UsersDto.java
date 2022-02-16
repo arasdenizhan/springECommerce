@@ -12,6 +12,9 @@ public class UsersDto {
     public String username;
     public String password;
     public String email;
+    public String customerName = "Undefined";
+    public String customerAddress = "Undefined";
+    public String customerPhone = "Undefined";
 
     public UsersDto(Long id, String username, String password, String email) {
         this.id = id;

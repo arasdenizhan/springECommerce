@@ -24,7 +24,7 @@
         </nav>
     </header>
     <div class="main-content">
-        <form th:action="@{/profile}" method="post">
+        <form th:action="@{/userProfile}" method="post">
             <div class="child-parent">
                 <div class="child">
                     <h2>Welcome, <span th:text="${currentUser.getUsername()}"></span> !</h2>
@@ -37,6 +37,12 @@
                     <input class="text-box" name="password" th:value="${currentUser.getPassword()}">
                     <h4>Current Email: <span th:text="${currentUser.getEmail()}"></span></h4>
                     <input class="text-box" name="email" th:value="${currentUser.getEmail()}"><p></p>
+                    <h4>Customer Name: <span th:text="${currentUser.getCustomerName()}"></span></h4>
+                    <input class="text-box" name="customerName" required><p></p>
+                    <h4>Customer Address: <span th:text="${currentUser.getCustomerAddress()}"></span></h4>
+                    <input class="text-box" name="customerAddress" required><p></p>
+                    <h4>Customer Phone: <span th:text="${currentUser.getCustomerPhone()}"></span></h4>
+                    <input class="text-box" name="customerPhone" required><p></p>
                 </div><br>
                 <div class="button-child">
                     <input class="post-button" type="submit" name="" value="Change">
@@ -44,5 +50,10 @@
             </div>
         </form>
     </div>
+    <footer>
+        <div class="site-footer">
+            Designed and Developed by <a href="https://github.com/arasdenizhan"><span style="color: #fd3030">Denizhan Aras</span></a> - 2022
+        </div>
+    </footer>
 </body>
 </html>

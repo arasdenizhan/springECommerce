@@ -1,8 +1,10 @@
 package com.example.yeczane.service.impl;
 
 import com.example.yeczane.dto.UsersDto;
+import com.example.yeczane.model.CustomerInfo;
 import com.example.yeczane.model.enums.UserRoles;
 import com.example.yeczane.model.Users;
+import com.example.yeczane.repository.CustomerInfoRepository;
 import com.example.yeczane.repository.UserRepository;
 import com.example.yeczane.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +15,12 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final CustomerInfoRepository customerInfoRepository;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userRepository, CustomerInfoRepository customerInfoRepository) {
         this.userRepository = userRepository;
+        this.customerInfoRepository = customerInfoRepository;
     }
 
     @Override
@@ -57,7 +61,13 @@ public class UserServiceImpl implements UserService {
             usersToBeUpdated.setUsername(usersDto.getUsername());
             usersToBeUpdated.setEmail(usersDto.getEmail());
             usersToBeUpdated.setPassword(usersDto.getPassword());
-            userRepository.save(usersToBeUpdated);
+            Users updatedUser = userRepository.save(usersToBeUpdated);
+            CustomerInfo customerInfo = new CustomerInfo();
+            customerInfo.setUser(updatedUser);
+            customerInfo.setCustomerName(usersDto.getCustomerName());
+            customerInfo.setCustomerAddress(usersDto.getCustomerAddress());
+            customerInfo.setCustomerPhone(usersDto.getCustomerPhone());
+            customerInfoRepository.save(customerInfo);
             return true;
         }
         return false;
