@@ -10,9 +10,10 @@ import java.util.List;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
     @Query(value = "SELECT orders.*, customer_info.user_id " +
-            "from orders " +
-            "inner join customer_info " +
-            "where user_id =?1",
-            nativeQuery = true)
+            "FROM orders " +
+            "LEFT JOIN customer_info " +
+            " ON customer_info_id = customer_info.id " +
+           "WHERE customer_info.user_id = ?1"
+            ,nativeQuery = true)
     List<Order> getAllOrdersByUserId(Long userId);
 }
