@@ -1,10 +1,15 @@
 package com.example.yeczane.controller;
 
+import com.example.yeczane.dto.OrderDto;
 import com.example.yeczane.dto.ProductDto;
 import com.example.yeczane.dto.UsersDto;
+import com.example.yeczane.dto.populator.OrderPopulator;
+import com.example.yeczane.dto.populator.UserPopulator;
 import com.example.yeczane.model.CustomerInfo;
+import com.example.yeczane.model.Order;
 import com.example.yeczane.model.Users;
 import com.example.yeczane.service.CustomerInfoService;
+import com.example.yeczane.service.OrderService;
 import com.example.yeczane.service.ProductService;
 import com.example.yeczane.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +20,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Controller
@@ -23,12 +30,14 @@ public class UserMainController {
     private final UserService userService;
     private final ProductService productService;
     private final CustomerInfoService customerInfoService;
+    private final OrderService orderService;
 
     @Autowired
-    public UserMainController(UserService userService, ProductService productService, CustomerInfoService customerInfoService) {
+    public UserMainController(UserService userService, ProductService productService, CustomerInfoService customerInfoService, OrderService orderService) {
         this.userService = userService;
         this.productService = productService;
         this.customerInfoService = customerInfoService;
+        this.orderService = orderService;
     }
 
     @GetMapping(path = {"","/"})
@@ -47,19 +56,21 @@ public class UserMainController {
         String currentUsersUsername = principal.getName();
         Users tempUser = userService.getUserByUsername(currentUsersUsername);
         CustomerInfo customerInfo = customerInfoService.findCustomerInfoByUserId(tempUser.getId());
-        UsersDto userDto = new UsersDto(
-                tempUser.getId(),
-                tempUser.getUsername(),
-                tempUser.getPassword(),
-                tempUser.getEmail()
-        );
-        if(customerInfo!=null){
-            userDto.setCustomerName(customerInfo.getCustomerName());
-            userDto.setCustomerAddress(customerInfo.getCustomerAddress());
-            userDto.setCustomerPhone(customerInfo.getCustomerPhone());
-        }
+        UsersDto userDto = UserPopulator.populateDto(tempUser);
+        UserPopulator.populateCustomerInfo(userDto, customerInfo);
         model.addAttribute("currentUser", userDto);
         return "userProfile";
+    }
+
+    @GetMapping("/userOrderList")
+    public String getOrderList(Model model, Principal principal){
+        String currentUsersUsername = principal.getName();
+        Users tempUser = userService.getUserByUsername(currentUsersUsername);
+        List<Order> allOrdersByUserId = orderService.getAllOrdersByUserId(tempUser.getId());
+        List<OrderDto> orderDtoList = new ArrayList<>();
+        allOrdersByUserId.forEach(order -> orderDtoList.add(OrderPopulator.populateOrderDto(order)));
+        model.addAttribute("orderDtoList", orderDtoList);
+        return "userOrderList";
     }
 
     @GetMapping("/login")

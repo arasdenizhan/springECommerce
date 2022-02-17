@@ -96,6 +96,18 @@ a {
     border-radius: 3px;
 }
 
+.child-orderDetails {
+    background: #fff;
+    width: 65%;
+    height: 25%;
+    /* Center horizontally*/
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 3px;
+}
+
 .image-child {
     white-space: nowrap;
     margin: 0 auto;
@@ -150,4 +162,11 @@ a {
     align-items: center;
     text-align: center;
     font-size: medium;
+}
+
+.straight-line{
+    background: #fd3030;
+    width: 75%;
+    height: 5px;
+    border: 0;
 }

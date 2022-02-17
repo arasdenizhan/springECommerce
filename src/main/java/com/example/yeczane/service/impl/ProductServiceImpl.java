@@ -23,7 +23,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product addNewProduct(ProductDto productDto) {
-        Product product = ProductPopulator.populate(productDto);
+        Product product = ProductPopulator.populateProduct(productDto);
         product.getImages().forEach(image -> image.setProduct(product));
         return productRepository.save(product);
     }
@@ -31,7 +31,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductImageDto> getAllProducts() {
         List<ProductImageDto> productImageDtoList = new ArrayList<>();
-        productRepository.findAll().forEach(product -> productImageDtoList.add(ProductPopulator.populate(product)));
+        productRepository.findAll().forEach(product -> productImageDtoList.add(ProductPopulator.populateImageDto(product)));
         return productImageDtoList;
     }
 }
