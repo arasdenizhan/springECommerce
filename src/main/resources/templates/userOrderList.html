@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Yeczane - Yeni Nesil Eczane</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/home.css}"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+<header class="site-header">
+    <div class="site-identity">
+        <!--            <a href="#"><img src="http://via.placeholder.com/400" alt="Site Name" /></a>-->
+        <h1><a href="#"> <i class="material-icons">local_pharmacy</i> Yeczane</a></h1>
+    </div>
+    <nav class="site-navigation">
+        <ul class="nav">
+            <li><a href="/userHome"> <i class="material-icons">home</i> </a></li>
+            <li><a href="/userProfile"> <i class="material-icons">account_circle</i> </a></li>
+            <li><a href="/userOrderList"> <i class="material-icons active">receipt_long</i> </a></li>
+            <li><a href="#"> <i class="material-icons">shopping_basket</i> </a></li>
+            <li><a href="#"> <i class="material-icons">credit_card</i> </a></li>
+            <li><a href="/logout"> <i class="material-icons">logout</i> </a></li>
+        </ul>
+    </nav>
+</header>
+<div class="main-content">
+    <div class="child-parent" th:if="${orderDtoList.isEmpty()}">
+        <div class="child" >
+            <h2>No Orders are available.</h2>
+        </div>
+    </div>
+    <div class="child-parent" th:each="orderDto : ${orderDtoList}">
+        <div class="child">
+            <h4>Order Date:</h4>
+            <p th:text="*{orderDto.date}"></p>
+            <h4>Order Status:</h4>
+            <p th:text="${orderDto.orderStatus}"></p>
+            <h4>Order Details:</h4>
+            <hr class="straight-line">
+            <div class="child-orderDetails" th:each="orderDetail : ${orderDto.orderDetailsList}">
+                <p><b>Product name: </b> <span th:text="*{orderDetail.product.name}" ></span></p>
+                <p><b>Product amount: </b><span th:text="*{orderDetail.amount}" ></span></p>
+                <p><b>Product price: </b> <span th:text="*{orderDetail.price}" ></span></p>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <div class="site-footer">
+        Designed and Developed by <a href="https://github.com/arasdenizhan"><span style="color: #fd3030">Denizhan Aras</span></a> - 2022
+    </div>
+</footer>
+</body>
+</html>

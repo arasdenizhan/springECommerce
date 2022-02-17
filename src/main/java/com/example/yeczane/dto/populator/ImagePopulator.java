@@ -16,7 +16,7 @@ public class ImagePopulator {
         throw new UnsupportedOperationException();
     }
 
-    public static List<Image> populate(ProductDto productDto){
+    public static List<Image> populateImage(ProductDto productDto){
         List<Image> imageList = new ArrayList<>();
         MultipartFile[] images = productDto.getImages();
         Arrays.stream(images).forEach(multipartFile ->
