@@ -25,7 +25,7 @@ public class Order {
     @Getter @Setter
     private CustomerInfo customerInfo;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "order", cascade = { CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @Getter @Setter
     private List<OrderDetails> orderDetails;
 

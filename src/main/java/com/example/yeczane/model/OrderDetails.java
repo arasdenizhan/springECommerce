@@ -28,6 +28,7 @@ public class OrderDetails {
     private Double price;
 
     @ManyToOne
+    @Setter @Getter
     private Order order;
 
 }
