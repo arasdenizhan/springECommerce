@@ -1,0 +1,17 @@
+version: "3.9"
+services:
+  yeczane-app:
+    build: .
+    ports:
+      - "8080:8080"
+
+  yeczane-db:
+    image: mariadb
+    platform: linux/amd64
+    ports:
+      - "3307:3306"
+    volumes:
+      - yeczane-volume:/tmp/mariadb
+
+volumes:
+  yeczane-volume:
