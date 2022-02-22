@@ -1,0 +1,45 @@
+version: "3.9"
+
+networks:
+
+  yeczane-network:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/24
+
+services:
+
+  yeczane-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      yeczane-network:
+        ipv4_address: 172.20.0.5
+    container_name: yeczane_compose
+    volumes:
+      - ../target:/target
+    environment:
+      DATASOURCE_URL: jdbc:mariadb://172.20.0.6:3306/test_db
+    ports:
+      - "8090:8080"
+    depends_on:
+      - yeczane-database
+
+  yeczane-database:
+    image: mariadb
+    #platform: linux/amd64
+    environment:
+      MARIADB_ROOT_PASSWORD: "123456"
+      MARIADB_DATABASE: test_db
+    networks:
+      yeczane-network:
+        ipv4_address: 172.20.0.6
+    ports:
+      - "3310:3306"
+    container_name: yeczane-database
+    volumes:
+      - yeczane-volume:/tmp/mariadb
+
+volumes:
+  yeczane-volume:
