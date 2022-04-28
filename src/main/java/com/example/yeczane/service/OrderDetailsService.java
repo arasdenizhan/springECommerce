@@ -5,4 +5,5 @@ import com.example.yeczane.model.OrderDetails;
 
 public interface OrderDetailsService {
     OrderDetails updateOrderDetails(OrderDetailsDto orderDetailsDto);
+    boolean deleteOrderDetailById(Long orderDetailId);
 }

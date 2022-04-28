@@ -16,7 +16,7 @@ public class OrderPopulator {
 
     public static OrderDetailsDto populateDetailsDto(OrderDetails orderDetails){
         ProductDto productDto = ProductPopulator.populateDto(orderDetails.getProduct());
-        return new OrderDetailsDto(productDto, orderDetails.getAmount().toString(), orderDetails.getPrice().toString());
+        return new OrderDetailsDto(orderDetails.getId(), productDto, orderDetails.getAmount().toString(), orderDetails.getPrice().toString());
     }
 
     public static OrderDto populateOrderDto(Order order){

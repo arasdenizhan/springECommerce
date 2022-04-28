@@ -1,10 +1,10 @@
 package com.example.yeczane.service.impl;
 
 import com.example.yeczane.dto.UsersDto;
+import com.example.yeczane.dto.populator.UserPopulator;
 import com.example.yeczane.model.CustomerInfo;
-import com.example.yeczane.model.enums.UserRoles;
 import com.example.yeczane.model.Users;
-import com.example.yeczane.repository.CustomerInfoRepository;
+import com.example.yeczane.model.enums.UserRoles;
 import com.example.yeczane.repository.UserRepository;
 import com.example.yeczane.service.CustomerInfoService;
 import com.example.yeczane.service.UserService;
@@ -33,7 +33,9 @@ public class UserServiceImpl implements UserService {
         users.setUsername(usersDto.getUsername());
         users.setPassword(usersDto.getPassword());
         users.setEmail(usersDto.getEmail());
-        return userRepository.save(users);
+        Users savedUser = userRepository.save(users);
+        updateUser(UserPopulator.populateDto(savedUser));
+        return savedUser;
     }
 
     @Override
