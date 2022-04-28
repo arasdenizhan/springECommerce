@@ -32,4 +32,13 @@ public class OrderDetailsServiceImpl implements OrderDetailsService {
         orderDetailsByProductCode.setAmount(amount);
         return orderDetailsRepository.save(orderDetailsByProductCode);
     }
+
+    @Override
+    public boolean deleteOrderDetailById(Long orderDetailId) {
+        if(orderDetailsRepository.existsById(orderDetailId)){
+            orderDetailsRepository.deleteOrderDetailsById(orderDetailId);
+            return true;
+        }
+        return false;
+    }
 }

@@ -8,6 +8,7 @@ import com.example.yeczane.dto.populator.OrderPopulator;
 import com.example.yeczane.dto.populator.UserPopulator;
 import com.example.yeczane.model.CustomerInfo;
 import com.example.yeczane.model.Order;
+import com.example.yeczane.model.OrderDetails;
 import com.example.yeczane.model.Users;
 import com.example.yeczane.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,10 +116,11 @@ public class UserMainController {
     @PostMapping("/updateOrderDetails")
     public String updateOrderDetails(@ModelAttribute("updateOrderDetailsDto") OrderDetailsDto updateOrderDetailsDto){
         Objects.requireNonNull(updateOrderDetailsDto);
-        if(orderDetailsService.updateOrderDetails(updateOrderDetailsDto)!=null){
-            return "redirect:/userShoppingCart";
+        if(Boolean.TRUE.equals(updateOrderDetailsDto.getDelete())){
+            return orderDetailsService.deleteOrderDetailById(updateOrderDetailsDto.getId()) ? "redirect:/userShoppingCart": "error";
+        } else {
+           return Objects.nonNull(orderDetailsService.updateOrderDetails(updateOrderDetailsDto)) ? "redirect:/userShoppingCart": "error";
         }
-        return "error";
     }
 
     @PostMapping("/addProductToBasket")

@@ -24,7 +24,7 @@
     </nav>
 </header>
 <div class="main-content" style="display: -webkit-flex">
-    <div class="child-parent" th:if="${orderDto.date==null}">
+    <div class="child-parent" th:if="${orderDto.date==null || orderDto.getOrderDetailsList().isEmpty()}">
         <div class="child" >
             <h2>No Products are available in your basket.</h2>
         </div>
@@ -38,8 +38,10 @@
                     <p><b>Product name: </b> <span th:text="*{orderDetail.product.name}" ></span></p>
                     <p><b>Product price: </b> <span th:text="*{orderDetail.price}" ></span></p>
                     <p><b>Product amount: </b><span th:text="*{orderDetail.amount}" ></span></p>
-                    <input class="text-box" name="amount"  type="number" min="1" th:value="${updateOrderDetailsDto.amount}">
+                    <input class="text-box" name="amount"  type="number" min="1" th:value="${orderDetail.amount}">
                     <input type="hidden" name="product.code" th:value="${orderDetail.product.code}">
+                    <input type="hidden" name="id" th:value="${orderDetail.id}"><br>
+                    <p>Delete product: <input type="checkbox" name="delete" th:checked="*{updateOrderDetailsDto.delete}"></p>
                     <button class="post-button" type="submit">Update Amount</button>
                 </div>
             </form>
