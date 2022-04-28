@@ -29,7 +29,7 @@ public class Product {
     private Double price;
 
     @Getter @Setter
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date createDate;
 
