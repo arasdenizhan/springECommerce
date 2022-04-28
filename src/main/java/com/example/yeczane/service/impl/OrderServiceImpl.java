@@ -50,10 +50,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getAllTemporaryOrderByUserId(Long userId) {
-        return orderRepository.getAllOrdersByUserId(userId)
-                .stream()
-                .filter(order -> order.getOrderStatus().equals(OrderStatus.TEMPORARY))
-                .collect(Collectors.toList());
+        return orderRepository.getAllTemporaryOrdersByUserId(userId);
     }
 
     @Override
