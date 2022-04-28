@@ -1,3 +1,6 @@
+Maven_clean_install:
+	mvn clean install -Dmaven.test.skip=true
+
 Pull_latest_maria_database:
 	docker pull mariadb
 
@@ -19,3 +22,26 @@ Run_database_with_volume_(M1):
 Create_database:
 	docker exec -it yeczanedb mariadb --user=root --password=123456 sys -e "CREATE DATABASE test_db;"
 
+Docker_compose:
+	docker-compose up
+
+Heroku_container_login:
+	heroku container:login
+
+Heroku_push:
+	heroku container:push web -a yeczane
+
+Heroku_release:
+	heroku container:release web -a yeczane
+
+Heroku_spring_profile:
+	heroku config:set SPRING_PROFILES_ACTIVE=docker
+
+Build_for_Heroku:
+	docker buildx build --platform linux/amd64 -t yeczane .
+
+Tag_for_heroku:
+	docker tag yeczane registry.heroku.com/yeczane/web
+
+Push_to_heroku:
+	docker push registry.heroku.com/yeczane/web

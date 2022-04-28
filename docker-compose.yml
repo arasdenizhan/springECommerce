@@ -1,0 +1,33 @@
+version: "3.9"
+
+services:
+
+  yeczaneapp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: yeczane-app
+    volumes:
+      - ../target:/target
+    environment:
+      DATASOURCE_URL: jdbc:postgres://yeczanedatabase:5435/test_db
+      DATASOURCE_USERNAME: root
+      DATASOURCE_PASSWORD: 123456
+    ports:
+      - "8090:8080"
+    depends_on:
+      - yeczanedatabase
+
+  yeczanedatabase:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: test_db
+    ports:
+      - "5435:5432"
+    container_name: yeczane-database
+    volumes:
+      - yeczane-volume:/var/lib/postgresql/data
+
+volumes:
+  yeczane-volume:
