@@ -6,9 +6,10 @@ import com.example.yeczane.dto.ProductDto;
 import com.example.yeczane.dto.UsersDto;
 import com.example.yeczane.dto.populator.OrderPopulator;
 import com.example.yeczane.dto.populator.UserPopulator;
-import com.example.yeczane.model.*;
+import com.example.yeczane.model.CustomerInfo;
+import com.example.yeczane.model.Order;
+import com.example.yeczane.model.Users;
 import com.example.yeczane.service.*;
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,6 +49,7 @@ public class UserMainController {
     @GetMapping("/userHome")
     public String getHomePage(Model model){
         model.addAttribute("products", productService.getAllProducts());
+        model.addAttribute("orderDetailsDto", new OrderDetailsDto());
         return "userHome";
     }
 
@@ -77,10 +79,8 @@ public class UserMainController {
     public String getShoppingCart(Model model, Principal principal){
         String currentUsersUsername = principal.getName();
         Users tempUser = userService.getUserByUsername(currentUsersUsername);
-        List<Order> allOrdersByUserId = orderService.getAllTemporaryOrderByUserId(tempUser.getId());
-        List<OrderDto> orderDtoList = new ArrayList<>();
-        allOrdersByUserId.forEach(order -> orderDtoList.add(OrderPopulator.populateOrderDto(order)));
-        model.addAttribute("orderDtoList", orderDtoList);
+        Order temporaryOrder = orderService.getTemporaryOrderByUserId(tempUser.getId());
+        model.addAttribute("orderDto", OrderPopulator.populateOrderDto(temporaryOrder));
         model.addAttribute("updateOrderDetailsDto", new OrderDetailsDto());
         return "userShoppingCart";
     }
@@ -119,6 +119,15 @@ public class UserMainController {
             return "redirect:/userShoppingCart";
         }
         return "error";
+    }
+
+    @PostMapping("/addProductToBasket")
+    public String addProductToBasket(@ModelAttribute("addProductToBasket") OrderDetailsDto orderDetailsDto, Principal principal){
+        Objects.requireNonNull(orderDetailsDto);
+        String currentUsersUsername = principal.getName();
+        Users tempUser = userService.getUserByUsername(currentUsersUsername);
+        orderService.addNewOrder(orderDetailsDto, tempUser.getId());
+        return "redirect:/userShoppingCart";
     }
 
     @PostMapping("/register")

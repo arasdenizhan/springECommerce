@@ -31,17 +31,23 @@
         </div>
         <div class="child-parent" th:each="product : ${products}">
             <div class="child">
-                <h4>Product name:</h4>
-                <p th:text="*{product.name}"></p>
-                <h4>Product code:</h4>
-                <p th:text="${product.code}"></p>
-                <h4>Product price:</h4>
-                <p th:text="${product.price}"></p>
-                <h4>Product images:</h4>
-                <div class="image-child">
-                    <img class="image-data" th:each="image : ${product.images}" th:src="@{'data:image/jpeg;base64,'+${image}}" />
-                </div>
-                <button class="post-button">Add to Cart</button>
+                <form th:action="@{/addProductToBasket}" method="post" enctype="multipart/form-data">
+                    <h4>Product name:</h4>
+                    <p th:text="*{product.name}"></p>
+                    <h4>Product code:</h4>
+                    <p th:text="${product.code}"></p>
+                    <h4>Product price:</h4>
+                    <p th:text="${product.price}"></p>
+                    <h4>Product images:</h4>
+                    <div class="image-child">
+                        <img class="image-data" th:each="image : ${product.images}" th:src="@{'data:image/jpeg;base64,'+${image}}" />
+                    </div>
+                    <input type="hidden" name="product.name" th:value="${product.name}">
+                    <input type="hidden" name="product.code" th:value="${product.code}">
+                    <input type="hidden" name="product.price" th:value="${product.price}">
+                    <input type="file" name="product.images" th:value="${product.images}" style="visibility: hidden">
+                    <button class="post-button">Add to Cart</button>
+                </form>
             </div>
         </div>
     </div>

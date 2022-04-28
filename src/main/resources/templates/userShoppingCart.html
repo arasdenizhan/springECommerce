@@ -24,12 +24,12 @@
     </nav>
 </header>
 <div class="main-content" style="display: -webkit-flex">
-    <div class="child-parent" th:if="${orderDtoList.isEmpty()}">
+    <div class="child-parent" th:if="${orderDto.date==null}">
         <div class="child" >
             <h2>No Products are available in your basket.</h2>
         </div>
     </div>
-    <div class="child-parent" th:each="orderDetail : ${orderDtoList.get(0).orderDetailsList}">
+    <div class="child-parent" th:each="orderDetail : ${orderDto.getOrderDetailsList()}">
         <div class="child">
             <h4>Product Details:</h4>
             <hr class="straight-line">

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -23,6 +24,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product addNewProduct(ProductDto productDto) {
+        Product productByCode = productRepository.findProductByCode(productDto.getCode());
+        if(productByCode!=null){
+            productDto.setCode(productDto.getCode()+"1");
+        }
         Product product = ProductPopulator.populateProduct(productDto);
         product.getImages().forEach(image -> image.setProduct(product));
         return productRepository.save(product);
@@ -33,5 +38,10 @@ public class ProductServiceImpl implements ProductService {
         List<ProductImageDto> productImageDtoList = new ArrayList<>();
         productRepository.findAll().forEach(product -> productImageDtoList.add(ProductPopulator.populateImageDto(product)));
         return productImageDtoList;
+    }
+
+    @Override
+    public Product getProductByCode(String code) {
+        return productRepository.findProductByCode(code);
     }
 }

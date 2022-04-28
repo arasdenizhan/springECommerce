@@ -21,11 +21,13 @@ public class OrderPopulator {
 
     public static OrderDto populateOrderDto(Order order){
         OrderDto orderDto = new OrderDto();
-        orderDto.setOrderStatus(order.getOrderStatus().toString());
-        orderDto.setDate(order.getOrderDate().toString());
-        List<OrderDetailsDto> orderDetailsDtoList = new ArrayList<>();
-        order.getOrderDetails().forEach(orderDetails -> orderDetailsDtoList.add(populateDetailsDto(orderDetails)));
-        orderDto.setOrderDetailsList(orderDetailsDtoList);
+        if(order!=null){
+            orderDto.setOrderStatus(order.getOrderStatus().toString());
+            orderDto.setDate(order.getOrderDate().toString());
+            List<OrderDetailsDto> orderDetailsDtoList = new ArrayList<>();
+            order.getOrderDetails().forEach(orderDetails -> orderDetailsDtoList.add(populateDetailsDto(orderDetails)));
+            orderDto.setOrderDetailsList(orderDetailsDtoList);
+        }
         return orderDto;
     }
 }

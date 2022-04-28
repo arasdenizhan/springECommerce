@@ -9,4 +9,5 @@ import javax.transaction.Transactional;
 @Repository
 @Transactional
 public interface ProductRepository extends JpaRepository<Product, Long> {
+    Product findProductByCode(String code);
 }
