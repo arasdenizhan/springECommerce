@@ -68,9 +68,7 @@ public class UserMainController {
         Users tempUser = userService.getUserByUsername(currentUsersUsername);
         List<Order> allOrdersByUserId = orderService.getAllOrdersByUserId(tempUser.getId());
         List<OrderDto> orderDtoList = new ArrayList<>();
-        allOrdersByUserId.stream()
-                .filter(order -> ObjectUtils.notEqual(order.getOrderStatus(),OrderStatus.TEMPORARY))
-                .forEach(order -> orderDtoList.add(OrderPopulator.populateOrderDto(order)));
+        allOrdersByUserId.forEach(order -> orderDtoList.add(OrderPopulator.populateOrderDto(order)));
         model.addAttribute("orderDtoList", orderDtoList);
         return "userOrderList";
     }
