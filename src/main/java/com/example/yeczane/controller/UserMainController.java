@@ -66,7 +66,7 @@ public class UserMainController {
     public String getOrderList(Model model, Principal principal){
         String currentUsersUsername = principal.getName();
         Users tempUser = userService.getUserByUsername(currentUsersUsername);
-        List<Order> allOrdersByUserId = orderService.getAllTemporaryOrderByUserId(tempUser.getId());
+        List<Order> allOrdersByUserId = orderService.getAllOrdersByUserId(tempUser.getId());
         List<OrderDto> orderDtoList = new ArrayList<>();
         allOrdersByUserId.stream()
                 .filter(order -> ObjectUtils.notEqual(order.getOrderStatus(),OrderStatus.TEMPORARY))
