@@ -1,17 +1,14 @@
 package com.example.yeczane.controller;
 
+import com.example.yeczane.dto.OrderDetailsDto;
 import com.example.yeczane.dto.OrderDto;
 import com.example.yeczane.dto.ProductDto;
 import com.example.yeczane.dto.UsersDto;
 import com.example.yeczane.dto.populator.OrderPopulator;
 import com.example.yeczane.dto.populator.UserPopulator;
-import com.example.yeczane.model.CustomerInfo;
-import com.example.yeczane.model.Order;
-import com.example.yeczane.model.Users;
-import com.example.yeczane.service.CustomerInfoService;
-import com.example.yeczane.service.OrderService;
-import com.example.yeczane.service.ProductService;
-import com.example.yeczane.service.UserService;
+import com.example.yeczane.model.*;
+import com.example.yeczane.service.*;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,12 +29,15 @@ public class UserMainController {
     private final CustomerInfoService customerInfoService;
     private final OrderService orderService;
 
+    private final OrderDetailsService orderDetailsService;
+
     @Autowired
-    public UserMainController(UserService userService, ProductService productService, CustomerInfoService customerInfoService, OrderService orderService) {
+    public UserMainController(UserService userService, ProductService productService, CustomerInfoService customerInfoService, OrderService orderService, OrderDetailsService orderDetailsService) {
         this.userService = userService;
         this.productService = productService;
         this.customerInfoService = customerInfoService;
         this.orderService = orderService;
+        this.orderDetailsService = orderDetailsService;
     }
 
     @GetMapping(path = {"","/"})
@@ -66,11 +66,25 @@ public class UserMainController {
     public String getOrderList(Model model, Principal principal){
         String currentUsersUsername = principal.getName();
         Users tempUser = userService.getUserByUsername(currentUsersUsername);
-        List<Order> allOrdersByUserId = orderService.getAllOrdersByUserId(tempUser.getId());
+        List<Order> allOrdersByUserId = orderService.getAllTemporaryOrderByUserId(tempUser.getId());
+        List<OrderDto> orderDtoList = new ArrayList<>();
+        allOrdersByUserId.stream()
+                .filter(order -> ObjectUtils.notEqual(order.getOrderStatus(),OrderStatus.TEMPORARY))
+                .forEach(order -> orderDtoList.add(OrderPopulator.populateOrderDto(order)));
+        model.addAttribute("orderDtoList", orderDtoList);
+        return "userOrderList";
+    }
+
+    @GetMapping("/userShoppingCart")
+    public String getShoppingCart(Model model, Principal principal){
+        String currentUsersUsername = principal.getName();
+        Users tempUser = userService.getUserByUsername(currentUsersUsername);
+        List<Order> allOrdersByUserId = orderService.getAllTemporaryOrderByUserId(tempUser.getId());
         List<OrderDto> orderDtoList = new ArrayList<>();
         allOrdersByUserId.forEach(order -> orderDtoList.add(OrderPopulator.populateOrderDto(order)));
         model.addAttribute("orderDtoList", orderDtoList);
-        return "userOrderList";
+        model.addAttribute("updateOrderDetailsDto", new OrderDetailsDto());
+        return "userShoppingCart";
     }
 
     @GetMapping("/login")
@@ -98,6 +112,15 @@ public class UserMainController {
     @GetMapping("adminRegister")
     public String getAdminRegisterPage(){
         return "adminRegister";
+    }
+
+    @PostMapping("/updateOrderDetails")
+    public String updateOrderDetails(@ModelAttribute("updateOrderDetailsDto") OrderDetailsDto updateOrderDetailsDto){
+        Objects.requireNonNull(updateOrderDetailsDto);
+        if(orderDetailsService.updateOrderDetails(updateOrderDetailsDto)!=null){
+            return "redirect:/userShoppingCart";
+        }
+        return "error";
     }
 
     @PostMapping("/register")

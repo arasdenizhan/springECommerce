@@ -27,7 +27,7 @@ public class OrderDetails {
     @Column(nullable = false)
     private Double price;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @Setter @Getter
     private Order order;
 

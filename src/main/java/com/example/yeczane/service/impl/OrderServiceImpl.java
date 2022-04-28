@@ -6,12 +6,9 @@ import com.example.yeczane.model.OrderStatus;
 import com.example.yeczane.repository.OrderRepository;
 import com.example.yeczane.service.CustomerInfoService;
 import com.example.yeczane.service.OrderService;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
