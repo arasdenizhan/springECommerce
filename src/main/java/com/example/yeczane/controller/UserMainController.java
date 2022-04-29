@@ -8,7 +8,6 @@ import com.example.yeczane.dto.populator.OrderPopulator;
 import com.example.yeczane.dto.populator.UserPopulator;
 import com.example.yeczane.model.CustomerInfo;
 import com.example.yeczane.model.Order;
-import com.example.yeczane.model.OrderDetails;
 import com.example.yeczane.model.Users;
 import com.example.yeczane.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,7 +108,8 @@ public class UserMainController {
     }
 
     @GetMapping("adminRegister")
-    public String getAdminRegisterPage(){
+    public String getAdminRegisterPage(Model model){
+        model.addAttribute("usersDto", new UsersDto());
         return "adminRegister";
     }
 
