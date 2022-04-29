@@ -13,7 +13,6 @@ Yeczane is a website that allows users to buy medicine online. There is an admin
   - If there is no problem, you can run the program.
 - Front-end development strategy is server-side rendering.
   - Thymeleaf were used in this project.
-- Back-end can be found at `localhost:8080`
 - Postgres Database, JPA & Hibernate
 - Prototype demo app available at: `https://yeczane.herokuapp.com`
   - Admin panel available at: `https://yeczane.herokuapp.com/admin`
