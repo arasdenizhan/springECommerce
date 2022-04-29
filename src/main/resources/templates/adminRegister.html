@@ -20,6 +20,25 @@
             </ul>
         </nav>
     </header>
+    <div class="main-content">
+        <form th:object="${usersDto}" th:action="@{/registerAdmin}" method="POST">
+            <div class="child-parent">
+                <div class="child">
+                    <h2>Add new Admin</h2>
+                    <h4>Admin username:</h4>
+                    <input class="text-box" name="username" required>
+                    <h4>Admin password:</h4>
+                    <input class="text-box" name="password" required>
+                    <h4>Admin email:</h4>
+                    <input class="text-box" name="email" type="email" required>
+                    <p></p>
+                </div><br>
+                <div class="button-child">
+                    <input class="post-button" type="submit" name="" value="Submit">
+                </div>
+            </div>
+        </form>
+    </div>
     <footer>
         <div class="site-footer">
             Designed and Developed by <a href="https://github.com/arasdenizhan"><span style="color: #fd3030">Denizhan Aras</span></a> - 2022
