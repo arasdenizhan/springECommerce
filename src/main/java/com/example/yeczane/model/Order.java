@@ -17,7 +17,7 @@ public class Order {
     private Long id;
 
     @Getter @Setter
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date orderDate;
 

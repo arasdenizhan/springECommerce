@@ -18,7 +18,6 @@
             <li><a href="/userProfile"> <i class="material-icons">account_circle</i> </a></li>
             <li><a href="/userOrderList"> <i class="material-icons">receipt_long</i> </a></li>
             <li><a href="/userShoppingCart"> <i class="material-icons active">shopping_basket</i> </a></li>
-            <li><a href="#"> <i class="material-icons">credit_card</i> </a></li>
             <li><a href="/logout"> <i class="material-icons">logout</i> </a></li>
         </ul>
     </nav>
@@ -49,7 +48,10 @@
     </div>
 </div>
 <div class="child-parent">
-    <button class="post-button" type="submit">Finish Order</button>
+    <form th:action="@{/finishOrder}" method="post">
+        <input type="hidden" name="id" th:value="${orderDto.id}">
+        <button class="post-button" type="submit">Finish Order</button>
+    </form>
 </div>
 <footer>
     <div class="site-footer">

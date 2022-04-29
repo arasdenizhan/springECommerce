@@ -132,6 +132,16 @@ public class UserMainController {
         return "redirect:/userShoppingCart";
     }
 
+    @PostMapping("/finishOrder")
+    public String finishOrder(@ModelAttribute("orderDto") OrderDto orderDto){
+        Objects.requireNonNull(orderDto);
+        Order order = orderService.finishOrder(orderDto.getId());
+        if(Objects.nonNull(order)){
+            return "redirect:/userOrderList";
+        }
+        return "error";
+    }
+
     @PostMapping("/register")
     public String addNewUser(@ModelAttribute("usersDto") UsersDto userDto)
     {
