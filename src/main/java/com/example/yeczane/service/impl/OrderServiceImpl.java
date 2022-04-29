@@ -10,10 +10,10 @@ import com.example.yeczane.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Optional;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -43,13 +43,20 @@ public class OrderServiceImpl implements OrderService {
             newOrder.setOrderDetails(List.of(orderDetails));
             orderDetails.setOrder(newOrder);
             return orderRepository.save(newOrder);
-        } else {
+        }
+        else {
             orderDetails.setOrder(orderToBeUpdated);
-            orderToBeUpdated.setOrderDetails(
-                    Stream.concat(
-                            orderToBeUpdated.getOrderDetails().stream()
-                            , Stream.of(orderDetails)
-                    ).collect(Collectors.toList()));
+            Optional<OrderDetails> optionalOrderDetails = orderToBeUpdated.getOrderDetails().stream().filter(detail -> orderDetails.getProduct().getCode().equals(detail.getProduct().getCode())).findAny();
+            if(optionalOrderDetails.isPresent()){
+                OrderDetails orderDetailsFound = optionalOrderDetails.get();
+                double newAmount = orderDetailsFound.getAmount() + orderDetails.getAmount();
+                orderDetailsFound.setPrice(orderDetailsFound.getPrice()/orderDetailsFound.getAmount()*newAmount);
+                orderDetailsFound.setAmount(newAmount);
+                orderToBeUpdated.getOrderDetails().addAll(Collections.singletonList(orderDetailsFound));
+            }
+            else {
+                orderToBeUpdated.getOrderDetails().addAll(Collections.singletonList(orderDetails));
+            }
             return orderRepository.save(orderToBeUpdated);
         }
     }
