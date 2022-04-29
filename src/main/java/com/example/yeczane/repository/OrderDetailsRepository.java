@@ -10,7 +10,8 @@ import javax.transaction.Transactional;
 
 @Repository
 public interface OrderDetailsRepository extends JpaRepository<OrderDetails, Long> {
-    OrderDetails getOrderDetailsByProductCode(String productCode);
+    @Query("Select od from OrderDetails od where od.id=?1")
+    OrderDetails getOrderDetailsById(Long id);
     @Modifying
     @Transactional
     @Query("Delete from OrderDetails o where o.id=?1")

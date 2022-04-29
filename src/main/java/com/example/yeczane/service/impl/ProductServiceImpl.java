@@ -26,7 +26,7 @@ public class ProductServiceImpl implements ProductService {
     public Product addNewProduct(ProductDto productDto) {
         Product productByCode = productRepository.findProductByCode(productDto.getCode());
         if(productByCode!=null){
-            productDto.setCode(productDto.getCode()+"1");
+            productDto.setCode(productByCode.getCode()+"1");
         }
         Product product = ProductPopulator.populateProduct(productDto);
         product.getImages().forEach(image -> image.setProduct(product));

@@ -12,7 +12,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderDto {
+    public Long id;
     public String date;
     public String orderStatus;
     public List<OrderDetailsDto> orderDetailsList;
+    public Double totalPrice;
 }

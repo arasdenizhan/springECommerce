@@ -3,6 +3,7 @@ package com.example.yeczane.service.impl;
 import com.example.yeczane.dto.OrderDetailsDto;
 import com.example.yeczane.model.Order;
 import com.example.yeczane.model.OrderDetails;
+import com.example.yeczane.model.OrderStatus;
 import com.example.yeczane.repository.OrderRepository;
 import com.example.yeczane.service.CustomerInfoService;
 import com.example.yeczane.service.OrderService;
@@ -65,6 +66,18 @@ public class OrderServiceImpl implements OrderService {
     public Order getTemporaryOrderByUserId(Long userId) {
         List<Order> ordersByUserId = orderRepository.getAllTemporaryOrdersByUserId(userId);
         return ordersByUserId.isEmpty() ? null : orderRepository.getAllTemporaryOrdersByUserId(userId).get(0);
+    }
+
+    @Override
+    public Order finishOrder(Long orderId) {
+        Optional<Order> orderOptional = orderRepository.findById(orderId);
+        if(orderOptional.isPresent()){
+            Order order = orderOptional.get();
+            order.setOrderStatus(OrderStatus.RECEIVED);
+            order.setOrderDate(new Date());
+            return orderRepository.save(order);
+        }
+        return null;
     }
 
     @Override
