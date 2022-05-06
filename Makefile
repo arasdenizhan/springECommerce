@@ -1,5 +1,7 @@
 Maven_clean_install:
 	mvn clean install -Dmaven.test.skip=true
+	
+# MARIA DATABASE IS NOT USED ANYMORE CHECK DOCKER-COMPOSE FOR POSTGRES #
 
 Pull_latest_maria_database:
 	docker pull mariadb
@@ -24,6 +26,8 @@ Create_database:
 
 Docker_compose:
 	docker-compose up
+
+# HEROKU DEPLOY COMMANDS USE YOUR OWN APP NAME AND SETTINGS TO DEPLOY #
 
 Heroku_container_login:
 	heroku container:login
