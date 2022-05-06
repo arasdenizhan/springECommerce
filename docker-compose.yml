@@ -7,8 +7,6 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: yeczane-app
-    volumes:
-      - ../target:/target
     environment:
       DATASOURCE_URL: jdbc:postgres://yeczanedatabase:5435/test_db
       DATASOURCE_USERNAME: root
