@@ -15,6 +15,8 @@ Yeczane is a website that allows users to buy medicine online. There is an admin
   - Thymeleaf were used in this project.
 - Postgres Database, JPA & Hibernate
 - Prototype demo app available at: `https://yeczane.herokuapp.com`
+- LOADING TIME OF PROTOTYPE MAY TAKE A BIT TIME.
+- PLEASE WAIT UNTIL IT IS LOADED. SINCE IT WAS DEPLOYED WITH HEROKU, APP WILL SLEEP UNTIL SOMEONE TRY TO USE IT.
   - Admin panel available at: `https://yeczane.herokuapp.com/admin`
   - Default Admin credentials are username:`admin` password:`123456`
 - Check below for details.
