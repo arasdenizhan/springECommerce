@@ -50,7 +50,7 @@ Yeczane is a website that allows users to buy medicine online. There is an admin
 - Users can see their products which are in their basket.
 - Product amount can be updated here.
 - Product can be deleted from the shopping cart.
-- With finis order button, a new order will be created.
+- With finish order button, a new order will be created.
   ![userProfile](images/userShoppingCart.png)
 
 ## Admin Login
